@@ -12,9 +12,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.coincapapp.navigation.BottomNavigationItem
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -32,10 +34,22 @@ fun MainScreen() {
 // Indispensable para cualquier navegación
 @Composable
 fun NavigationGraph(navController: NavHostController){
+    val assetIdKey = "assetId"
+
     NavHost(navController, startDestination = BottomNavigationItem.Home.route){
-        composable(BottomNavigationItem.Home.route){ AssetsList()}
+        composable(BottomNavigationItem.Home.route) { AssetsList(navController = navController) }
         composable(BottomNavigationItem.Favourites.route){ Favourites() }
         composable(BottomNavigationItem.Settings.route){ Settings() }
+
+        composable(
+            route = "${BottomNavigationItem.Home.route}/{assetId}",
+            arguments = listOf(navArgument("assetId") { type = NavType.StringType })
+        ) { backStackEntry ->
+            AssetDetailView(
+                assetId = backStackEntry.arguments?.getString(assetIdKey) ?: "missing asset",
+                navController
+            )
+        }
     }
 }
 
