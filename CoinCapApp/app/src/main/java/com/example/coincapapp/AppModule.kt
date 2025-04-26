@@ -1,6 +1,7 @@
 package com.example.coincapapp
 
 import com.example.coincapapp.services.CoinCapApiService
+import com.google.firebase.auth.FirebaseAuth
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +35,11 @@ object AppModule {
     @Singleton
     fun coinCapApiService(client: HttpClient): CoinCapApiService {
         return CoinCapApiService(client)
+    }
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
     }
 }

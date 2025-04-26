@@ -5,6 +5,10 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.kotlin.plugin.compose)
     alias(libs.plugins.kotlin.serialization)
+    
+    // Google services Gradle plugin
+	id("com.google.gms.google-services")
+
 }
 
 android {
@@ -94,6 +98,10 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // Firebase
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
 }
 
 kapt {
