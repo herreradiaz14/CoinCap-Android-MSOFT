@@ -10,10 +10,12 @@ import javax.inject.Inject
 class CoinCapApiService @Inject constructor(
     private val client: HttpClient
 ) {
+    // Borrar el apiKey antes de commit
+    val apiKey = "ffab4e2f346a6fc24e7537ce4e0495c81eea0cbf1a78a4d39fec59d0d2d0e92f"
+    val baseUrl = "http://rest.coincap.io/v3"
+
     suspend fun getAssets(): AssetsResponse{
-        // Borrar el apiKey antes de commit
-        val apiKey = "ffab......"
-        val response: HttpResponse = client.get(urlString="http://rest.coincap.io/v3/assets?apiKey=$apiKey")
+        val response: HttpResponse = client.get(urlString="$baseUrl/assets?apiKey=$apiKey")
         return response.body()
     }
 }
